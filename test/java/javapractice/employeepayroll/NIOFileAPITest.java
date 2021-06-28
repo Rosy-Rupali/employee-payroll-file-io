@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.IntStream;
 import Util.*;
+import service.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -39,12 +40,19 @@ public class NIOFileAPITest {
 			}
 			Assert.assertTrue(Files.exists(tempFile));
 		});
-		
-		//List of files, directories as well as files with extension
+
+		// List of files, directories as well as files with extension
 		Files.list(playPath).filter(Files::isRegularFile).forEach(System.out::println);
 		Files.newDirectoryStream(playPath).forEach(System.out::println);
 		Files.newDirectoryStream(playPath, path -> path.toFile().isFile() && path.toString().startsWith("temp"))
 				.forEach(System.out::println);
+	}
+
+	@Test
+	public void givenDirectory_WhenWatched_ListsAllTheActivities() throws IOException {
+		Path dir = Paths.get(HOME + "/" + PLAY_WITH_NIO);
+		Files.list(dir).filter(Files::isRegularFile).forEach(System.out::println);
+		new Java8WatchServiceExample(dir).processEvents();
 	}
 
 }
