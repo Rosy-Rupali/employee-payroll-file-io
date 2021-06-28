@@ -13,6 +13,7 @@ import java.util.Scanner;
 import model.*;
 
 public class EmployeePayrollService {
+	public  enum IOService{CONSOLE_TO, FILE_IO, REST_IO};
 	private List<EmployeePayrollData> employeePayrollList;
 
 	public EmployeePayrollService() {
