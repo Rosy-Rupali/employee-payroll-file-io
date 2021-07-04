@@ -1,5 +1,5 @@
 /**************************************************
- * Purpose : This class is Employee Payroll file IO Service
+ * Purpose : Program is  to create a file for storing Employee Payroll data
  * @author Rosy Rupali
  * @since 28-06-2021
  * @version 1.0
@@ -10,11 +10,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.EmployeePayrollData;
 
 public class EmployeePayrollFileIOService {
+	//Creating a file name
 	public static String PAYROLL_FILE_NAME = "payroll-file.txt";
 
 	/**
@@ -22,9 +24,9 @@ public class EmployeePayrollFileIOService {
 	 * 
 	 * @param employePayrollList
 	 */
-	public void writeDataToFile(List<EmployeePayrollData> employePayrollList) {
+	public void writeDataToFile(List<EmployeePayrollData> employePayrollDataList) {
 		StringBuffer stringBuffer = new StringBuffer();
-		employePayrollList.forEach(employee -> {
+		employePayrollDataList.forEach(employee -> {
 			String employeeDataString = employee.toString().concat("\n");
 			stringBuffer.append(employeeDataString);
 		});
@@ -36,7 +38,19 @@ public class EmployeePayrollFileIOService {
 	}
 	
 	/**
-	 *  This method is used to read the data from file
+	 * This method is to read data from file
+	 */
+	public void readDataFromFile() {
+		List<EmployeePayrollData> employeePayrollDataList = new ArrayList<>();
+		try {
+			Files.lines(new File(PAYROLL_FILE_NAME).toPath()).map(line -> line.trim())
+					.forEach(line -> System.out.println(line));
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 *  This method is used to print the data from file
 	 */
 	public void printDataFromFile() {
 		try {
@@ -49,7 +63,7 @@ public class EmployeePayrollFileIOService {
 	/**
 	 * This method is used to count the entries to ensure the operation worked
 	 * 
-	 * @return entries
+	 * @return entries into file
 	 */
 	public long countEntries() {
 		long entries = 0;

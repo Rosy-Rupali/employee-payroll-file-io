@@ -13,10 +13,12 @@ import java.util.Scanner;
 import model.*;
 
 public class EmployeePayrollService {
+	
 	public enum IOService {
 		CONSOLE_IO, FILE_IO, REST_IO
 	};
 
+	//created a List
 	private List<EmployeePayrollData> employeePayrollList;
 
 	public EmployeePayrollService() {
@@ -28,7 +30,7 @@ public class EmployeePayrollService {
 	}
 
 	/**
-	 * This is the main method which is use to call reading and writing data method
+	 * This is the main method to run program
 	 * 
 	 * @param args
 	 */
@@ -40,7 +42,7 @@ public class EmployeePayrollService {
 	}
 
 	/**
-	 * This method is used to count the entries.
+	 * This method is used to return count of entries.
 	 */
 	public long countEntries(IOService fileIO) {
 		if (fileIO.equals(IOService.FILE_IO)) {
@@ -61,11 +63,17 @@ public class EmployeePayrollService {
 	}
 	
 	/**
-	 * This method is used to read the employee payroll data.
+	 * This method is used to print the employee payroll data.
 	 */
 	public void printData(IOService fileIO) {
 		if(fileIO.equals(IOService.FILE_IO)){
 			new EmployeePayrollFileIOService().printDataFromFile();
+		}
+	}
+	
+	public void readDataFromFile(IOService fileIO) {
+		if(fileIO.equals(IOService.CONSOLE_IO)) {
+			new EmployeePayrollFileIOService().readDataFromFile();
 		}
 	}
 
