@@ -1,5 +1,11 @@
+/****************************************************
+* Purpose : Test file written to test the employee-payroll program
+* @author Rosy Rupali
+* @version 1.0
+* @since 28-06-2021
+*
+****************************************************/
 package javapractice.employeepayroll;
-
 import java.util.Arrays;
 
 import org.junit.Assert;
@@ -17,7 +23,16 @@ public class EmployeePayrollServiceTest {
 		employeePayrollService.writingData(EmployeePayrollService.IOService.FILE_IO);
 		employeePayrollService.printData(EmployeePayrollService.IOService.FILE_IO);
 		long entries = employeePayrollService.countEntries(EmployeePayrollService.IOService.FILE_IO);
-		System.out.println("Total number of entries are: "+entries);
+		System.out.println("Total number of entries are: " + entries);
+		Assert.assertEquals(3, entries);
+	}
+
+	@Test
+	public void givenFile_OnReadingFromFile_ShouldMatchEmployeeCount() {
+		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+		employeePayrollService.readDataFromFile(EmployeePayrollService.IOService.FILE_IO);
+		long entries = employeePayrollService.countEntries(EmployeePayrollService.IOService.FILE_IO);
+
 		Assert.assertEquals(3, entries);
 	}
 
