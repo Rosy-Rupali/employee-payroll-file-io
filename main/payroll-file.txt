@@ -1,0 +1,3 @@
+EmployeePayrollData [id=1, name=Rosy Rupali, salary=400000.0]
+EmployeePayrollData [id=2, name=Rohit Kumar, salary=200000.0]
+EmployeePayrollData [id=3, name=Anupama Singh, salary=300000.0]
