@@ -1,11 +1,10 @@
 /**************************************************
- * Purpose : Read and Write data of Employee Payroll in a file
+ * Purpose :This class implement  Read and Write data of Employee Payroll in a file
  * @author Rosy Rupali
  * @since 28-06-2021
  * @version 1.0
  *************************************************/
 package service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,12 +12,20 @@ import java.util.Scanner;
 import model.*;
 
 public class EmployeePayrollService {
-	public  enum IOService{CONSOLE_TO, FILE_IO, REST_IO};
+	public  enum IOService{
+		CONSOLE_IO, FILE_IO, REST_IO
+		};
 	private List<EmployeePayrollData> employeePayrollList;
 
 	public EmployeePayrollService() {
-		this.employeePayrollList = new ArrayList<>();
+
 	}
+	
+
+	public EmployeePayrollService(List<EmployeePayrollData> employeePayrollList) {
+		this.employeePayrollList = employeePayrollList;
+	}
+
 
 	/**
 	 * This is the main method which is use to call reading and writing data
@@ -26,9 +33,30 @@ public class EmployeePayrollService {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+		ArrayList<EmployeePayrollData> employeePayrollList = new ArrayList<>();
+		EmployeePayrollService employeePayrollService = new EmployeePayrollService(employeePayrollList);
 		employeePayrollService.readingData();
-		employeePayrollService.writingData();
+		employeePayrollService.writingData(IOService.CONSOLE_IO);
+	}
+	
+	/**
+	 * This method is used to count the entries.
+	 */
+	public long countEntries(IOService fileIO) {
+		if(fileIO.equals(IOService.FILE_IO)) {
+			return new EmployeePayrollFileIOService().countEntries();
+		}
+		return 0;
+	}
+	/**
+	 *  This method is used to write the employee payroll data.
+	 */
+	public void writingData(IOService fileIO) {
+		if(fileIO.equals(IOService.CONSOLE_IO)) {
+			System.out.println(employeePayrollList);
+		}else if(fileIO.equals(IOService.FILE_IO)) {
+			new EmployeePayrollFileIOService().writeDataToFile(employeePayrollList);
+		}
 	}
 
 	/**
@@ -46,14 +74,6 @@ public class EmployeePayrollService {
 		int salary = input.nextInt();
 		employeePayrollList.add(new EmployeePayrollData(id, name, salary));
 		input.close();
-	}
-	
-	/**
-	 * This method prints Employee details on the console
-	 */
-	private void writingData() {
-		System.out.println(employeePayrollList);
-
 	}
 
 }
