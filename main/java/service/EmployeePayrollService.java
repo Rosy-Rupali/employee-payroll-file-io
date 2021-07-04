@@ -5,6 +5,7 @@
  * @version 1.0
  *************************************************/
 package service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,24 +13,23 @@ import java.util.Scanner;
 import model.*;
 
 public class EmployeePayrollService {
-	public  enum IOService{
+	public enum IOService {
 		CONSOLE_IO, FILE_IO, REST_IO
-		};
+	};
+
 	private List<EmployeePayrollData> employeePayrollList;
 
 	public EmployeePayrollService() {
 
 	}
-	
 
 	public EmployeePayrollService(List<EmployeePayrollData> employeePayrollList) {
 		this.employeePayrollList = employeePayrollList;
 	}
 
-
 	/**
-	 * This is the main method which is use to call reading and writing data
-	 * method
+	 * This is the main method which is use to call reading and writing data method
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -38,30 +38,40 @@ public class EmployeePayrollService {
 		employeePayrollService.readingData();
 		employeePayrollService.writingData(IOService.CONSOLE_IO);
 	}
-	
+
 	/**
 	 * This method is used to count the entries.
 	 */
 	public long countEntries(IOService fileIO) {
-		if(fileIO.equals(IOService.FILE_IO)) {
+		if (fileIO.equals(IOService.FILE_IO)) {
 			return new EmployeePayrollFileIOService().countEntries();
 		}
 		return 0;
 	}
+
 	/**
-	 *  This method is used to write the employee payroll data.
+	 * This method is used to write the employee payroll data.
 	 */
 	public void writingData(IOService fileIO) {
-		if(fileIO.equals(IOService.CONSOLE_IO)) {
+		if (fileIO.equals(IOService.CONSOLE_IO)) {
 			System.out.println(employeePayrollList);
-		}else if(fileIO.equals(IOService.FILE_IO)) {
+		} else if (fileIO.equals(IOService.FILE_IO)) {
 			new EmployeePayrollFileIOService().writeDataToFile(employeePayrollList);
+		}
+	}
+	
+	/**
+	 * This method is used to read the employee payroll data.
+	 */
+	public void printData(IOService fileIO) {
+		if(fileIO.equals(IOService.FILE_IO)){
+			new EmployeePayrollFileIOService().printDataFromFile();
 		}
 	}
 
 	/**
-	 * This method is use to take employee details from console
-	 * and add to the employee payroll list.
+	 * This method is use to take employee details from console and add to the
+	 * employee payroll list.
 	 */
 	private void readingData() {
 		Scanner input = new Scanner(System.in);

@@ -1,5 +1,5 @@
 /**************************************************
- * Purpose : In this class we Write data to file using file IO Service
+ * Purpose : This class is Employee Payroll file IO Service
  * @author Rosy Rupali
  * @since 28-06-2021
  * @version 1.0
@@ -18,7 +18,7 @@ public class EmployeePayrollFileIOService {
 	public static String PAYROLL_FILE_NAME = "payroll-file.txt";
 
 	/**
-	 * This method is used to write the data
+	 * This method is used to write the data to the file
 	 * 
 	 * @param employePayrollList
 	 */
@@ -31,6 +31,17 @@ public class EmployeePayrollFileIOService {
 		try {
 			Files.write(Paths.get(PAYROLL_FILE_NAME), stringBuffer.toString().getBytes());
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 *  This method is used to read the data from file
+	 */
+	public void printDataFromFile() {
+		try {
+			Files.lines(new File(PAYROLL_FILE_NAME).toPath()).forEach(System.out::println);
+		}catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
